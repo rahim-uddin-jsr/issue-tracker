@@ -24,22 +24,29 @@ function submitIssue(e) {
 }
 
 const closeIssue = (id) => {
+  const userDecision = confirm("Are you sure want to close this Issue?");
   // console.log(id);
-  const issues = JSON.parse(localStorage.getItem("issues"));
-  console.log(issues[0].id);
-  const currentIssue = issues.find((issue) => issue.id == id);
-  console.log(currentIssue);
-  currentIssue.status = "Closed";
-  localStorage.setItem("issues", JSON.stringify(issues));
-  fetchIssues();
+  if (userDecision) {
+    const issues = JSON.parse(localStorage.getItem("issues"));
+    console.log(issues[0].id);
+    const currentIssue = issues.find((issue) => issue.id == id);
+    console.log(currentIssue);
+    currentIssue.status = "Closed";
+    localStorage.setItem("issues", JSON.stringify(issues));
+    fetchIssues();
+  }
 };
 
 const deleteIssue = (id) => {
-  const issues = JSON.parse(localStorage.getItem("issues"));
-  const remainingIssues = issues.filter((issue) => parseInt(issue.id) !== id);
-  console.log(remainingIssues);
-  localStorage.setItem("issues", JSON.stringify(remainingIssues));
-  fetchIssues();
+  const userDecision = confirm("Are you sure want to Delete this Issue?");
+
+  if (userDecision) {
+    const issues = JSON.parse(localStorage.getItem("issues"));
+    const remainingIssues = issues.filter((issue) => parseInt(issue.id) !== id);
+    console.log(remainingIssues);
+    localStorage.setItem("issues", JSON.stringify(remainingIssues));
+    fetchIssues();
+  }
 };
 
 const fetchIssues = () => {
